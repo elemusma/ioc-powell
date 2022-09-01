@@ -23,17 +23,8 @@ wp_head(); ?>
 <div class="nav">
 <div class="container">
 <div class="row align-items-center justify-content-md-between justify-content-center">
-<div class="col-lg-3 col-6">
-<a href="<?php echo home_url(); ?>">
-<?php 
-$logo = get_field('logo','options'); 
-if($logo){
-echo wp_get_attachment_image($logo['id'],'full',"",['class'=>'w-100 h-auto']); 
-}
-?>
-</a>
-</div>
-<div class="col-lg-4 col-6 d-flex align-items-center justify-content-end">
+
+<div class="col-md-4 col-6 d-flex align-items-center justify-content-start">
 <?php wp_nav_menu(array(
 'menu' => 'Contact',
 'menu_class'=>'menu d-flex flex-wrap list-unstyled justify-content-center mb-0'
@@ -56,6 +47,24 @@ echo wp_get_attachment_image($logo['id'],'full',"",['class'=>'w-100 h-auto']);
 </div>
 </a>
 </div>
+
+<div class="col-md-4 col-6 text-center">
+<a href="<?php echo home_url(); ?>">
+<?php 
+$logo = get_field('logo','options'); 
+if($logo){
+echo wp_get_attachment_image($logo['id'],'full',"",['class'=>'w-100 h-auto','style'=>'max-width:250px;']); 
+}
+?>
+</a>
+</div>
+
+<div class="col-md-4 col-12 text-right">
+<?php 
+echo '<p class="bold mb-0">' . get_bloginfo('description') . '</p>'; 
+?>
+</div>
+
 <div id="navMenuOverlay" class="position-fixed z-2"></div>
 <div class="col-lg-4 col-md-5 col-11 nav-items bg-white" id="navItems">
 
@@ -95,7 +104,7 @@ echo '</div>';
 
 </header>
 <?php
-if(!is_front_page()){
+if(is_front_page()){
 echo '<section class="hero position-relative">';
 $globalPlaceholderImg = get_field('global_placeholder_image','options');
 if(is_page()){

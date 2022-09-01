@@ -48,7 +48,7 @@ echo wp_get_attachment_image($globalPlaceholderImg['id'],'full',"",['class'=>'w-
 <div class="about-details pt-5 pl-4 pr-4">
 <div class="page details">
 <!-- <h4 class="bodoni">Best in Denver</h4> -->
-<h5 class=""><?php the_field('main_title'); ?></h5>
+<h1 class="text-accent"><?php the_field('main_title'); ?></h1>
 </div>
 <!-- <h6><em>High tech, intelligent and cutting edge.</em></h6> -->
 <?php the_field('description'); ?>
