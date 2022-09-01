@@ -157,8 +157,8 @@ function baseurl_shortcode( $atts ) {
 
 }
 
-add_shortcode( 'testing_url', 'testing_url_shortcode' );
-function testing_url_shortcode( $atts ) {
+add_shortcode( 'contact_form', 'contact_form_shortcode' );
+function contact_form_shortcode( $atts ) {
 
 	$message_sent = false;
     if(isset($_POST['email']) && $_POST['email'] != '' ){
@@ -327,7 +327,7 @@ $body .= '</table>';
 				  
 	</form>';
 	}
-	// [testing_url]
+	// [contact_form]
 
 }
 
