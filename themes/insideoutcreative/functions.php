@@ -14,6 +14,9 @@ wp_enqueue_style('img', get_theme_file_uri('/css/elements/img.css'));
 if(is_front_page() || is_page_template('templates/services.php')){
 	wp_enqueue_style('home', get_theme_file_uri('/css/sections/home.css'));
 }
+if(is_page_template('templates/about-story.php')){
+	wp_enqueue_style('about-story', get_theme_file_uri('/css/sections/about-story.css'));
+}
 if(is_page_template('templates/about.php')){
 	wp_enqueue_style('about-custom', get_theme_file_uri('/css/sections/about.css'));
 	wp_enqueue_style('intro', get_theme_file_uri('/css/sections/intro.css'));
@@ -72,6 +75,10 @@ function powell_restoration_stylesheets_footer() {
     // general
 	wp_enqueue_script('nav-js', get_theme_file_uri('/js/nav.js'));
 	wp_enqueue_script('popup-js', get_theme_file_uri('/js/popup.js'));
+
+	if(is_page_template('templates/about-story.php')){
+		wp_enqueue_script('about-js', get_theme_file_uri('/js/about.js'));
+	}
 	
 	if(is_single()){
 		wp_enqueue_script('blog-js', get_theme_file_uri('/js/blog.js'));

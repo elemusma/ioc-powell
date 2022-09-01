@@ -6,7 +6,7 @@
  get_header();
 
  // start of services
-if(have_rows('services_content', 2)): while(have_rows('services_content', 2)): the_row();
+if(have_rows('services_content')): while(have_rows('services_content')): the_row();
 $bgImg = get_sub_field('background_image');
 $content = get_sub_field('content');
 $relationship = get_sub_field('relationship');
@@ -70,7 +70,7 @@ echo '</div>';
 echo '</div>';
 
 echo '<div class="d-inline-block position-relative text-white pl-0">';
-echo '<h4 class="mb-0 h5 pb-4" style="border-bottom:10px solid var(--accent-primary);"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h4>';
+echo '<h4 class="mb-0 h6 pb-4" style="border-bottom:10px solid var(--accent-primary);"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h4>';
 echo '</div>';
 echo '</div>';
 echo '</div>';

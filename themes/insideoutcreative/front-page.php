@@ -12,15 +12,15 @@ background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(75,113,255,1) 7
 
 echo '<div class="container" style="margin-bottom:-10px;">';
 echo '<div class="row">';
-echo '<div class="col-lg-6 col-md-9 pt-5">';
-echo '<h1 class="text-white mb-0 page-title text-shadow">' . get_the_title() . '</h1>';
-echo '</div>';
+// echo '<div class="col-lg-6 col-md-9 pt-5">';
+// echo '<h1 class="text-white mb-0 page-title text-shadow">' . get_the_title() . '</h1>';
+// echo '</div>';
 
 if(have_rows('header_content')): while(have_rows('header_content')): the_row();
 echo '<div class="col-12 ml-auto p-0">';
 echo '<div style="height:300px;"></div>';
 echo '<div class="text-center" style="">';
-echo '<div class="text-white" style="font-size:150%;">';
+echo '<div class="text-white text-shadow" style="font-size:150%;">';
 echo get_sub_field('content');
 echo '</div>';
 
