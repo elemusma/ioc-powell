@@ -135,7 +135,7 @@ function smartwp_remove_wp_block_library_css(){
 		wp_dequeue_style( 'wc-block-style' ); // Remove WooCommerce block CSS
 	}
 } 
-add_action( 'wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100 );
+// add_action( 'wp_enqueue_scripts', 'smartwp_remove_wp_block_library_css', 100 );
 
 // add_filter('show_admin_bar', '__return_false');
 
@@ -154,6 +154,180 @@ function baseurl_shortcode( $atts ) {
 
     return site_url();
 	// [base_url]
+
+}
+
+add_shortcode( 'testing_url', 'testing_url_shortcode' );
+function testing_url_shortcode( $atts ) {
+
+	$message_sent = false;
+    if(isset($_POST['email']) && $_POST['email'] != '' ){
+        if(filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+
+            // submit the form
+            $userEmail = $_POST['email'];
+            $firstName = $_POST['firstName'];
+            $phone = $_POST['phone'];
+            $message = $_POST['message'];
+            // $math = $_POST['math'];
+            // $messageSubject = $_POST['subject'];
+            // $message = $_POST['message'];
+
+
+$to = "efrain@insideoutfocus.com";
+            
+$headers = "From: info@insideoutfocus.com \r\n";
+$headers .= "Reply-To: info@insideoutfocus.com \r\n";
+// $headers .= "CC: garrett@insideoutfocus.com\r\n";
+$headers .= "MIME-Version: 1.0\r\n";
+$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+
+
+$body = '<table style="background-color: #f7f7f7; width: 100%;">';
+$body .= '<tbody>';
+$body .= '<tr>';
+$body .= '<td>';
+
+// start of table for logo
+$body .= '<table style="padding-top:20px;padding-bottom: 20px;margin:auto;">';
+$body .= '<tbody>';
+$body .= '<tr>';
+$body .= '<td style="text-align: center;"><img src="' . home_url() . '/wp-content/uploads/2022/08/Logo-Powell-Restoration.png" alt="Logo" width="200px" height="auto"/></td>';
+$body .= '</tr>';
+$body .= '</tbody>';
+$body .= '</table>';
+// end of table for logo
+
+// start of body
+$body .= '<table style="margin: auto; padding: 20px; width: 100%; max-width: 600px;background-color:white;">';
+$body .= '<tbody>';
+
+$body .= '<tr>';
+$body .= '<td><p style="padding-left:10px;">Email: <br>' . $userEmail . '</p></td>';
+$body .= '</tr>';
+
+$body .= '<tr>';
+$body .= '<td><p style="padding-left:10px;">From: <br>' . $firstName . '</p></td>';
+$body .= '</tr>';
+
+$body .= '<tr>';
+$body .= '<td><p style="padding-left:10px;">Phone: <br>' . $phone . '</p></td>';
+$body .= '</tr>';
+
+$body .= '<tr>';
+$body .= '<td><p style="padding-left:10px;">Message: <br>' . $message . '</p></td>';
+$body .= '</tr>';
+
+
+
+
+
+
+
+
+
+$body .= '</tbody>';
+$body .= '</table>';
+// end of body
+
+
+// necessary so the table below does get styled
+$body .= '<table style="margin: auto; padding: 20px; width: 100%; max-width: 600px;text-align:center;">';
+$body .= '<tbody>';
+$body .= '<tr>';
+$body .= '<td>';
+$body .= '</td>';
+$body .= '</tr>';
+$body .= '<tr>';
+$body .= '</tr>';
+$body .= '</tbody>';
+$body .= '</table>';
+// necessary so the table below does get styled
+
+// start of footer
+$body .= '<table style="margin: auto; padding: 20px; width: 100%; max-width: 600px;text-align:center;">';
+$body .= '<tbody>';
+$body .= '<tr>';
+$body .= '<td>';
+$body .= '<h4>Congrats on your new website lead!</h4>';
+$body .= '</td>';
+$body .= '</tr>';
+
+$body .= '<tr>';
+$body .= '<td>Have questions about the form submission or the website?
+Reach out to your web support at <a href="mailto:garrett@insideoutfocus.com">garrett@insideoutfocus.com</a></td>';
+$body .= '</tr>';
+$body .= '</tbody>';
+$body .= '</table>';
+// end of footer
+
+$body .= '</td>';
+$body .= '</tr>';
+$body .= '</tbody>';
+$body .= '</table>';
+
+
+
+            mail($to,'Website Lead!!! ' . $firstName .'', $body, $headers);
+
+            $message_sent = true;
+
+
+            
+        }
+    }
+
+    if($message_sent){
+        echo '<section class="pt-5 pb-5">';
+        echo '<div class="container">';
+        echo '<div class="row">';
+        echo '<div class="col-12">';
+
+        echo '<h2>Thank you for getting in touch, ' . $firstName . '</h2>';
+        echo '<p>The form has been successfully submitted. We\'ll respond shortly.</p>';
+        echo '<a href="/" class="bg-accent btn text-white"><- Go Back Home</a>';
+        
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';
+        echo '</section>';
+    } else {
+
+    return '<form id="contact-form" class="" action="' . home_url() . '/contact/" method="POST">
+
+
+	<div class="row">
+	
+	<div class="col-lg-4 col-6">
+	<label for="firstName">First Name</label><br>
+	<input type="text" name="firstName" placeholder="" style="" required>
+	</div>
+	
+	<div class="col-lg-4 col-6">
+	<label for="email">Email</label><br>
+	<input type="email" name="email" placeholder="" style="" required>
+	</div>
+	
+	<div class="col-lg-4">          
+	<label for="phone">Phone Number</label><br>
+	<input type="tel" name="phone" placeholder="" style="" required>
+	</div>
+	
+	<div class="col-12">          
+	<label for="message">Message</label><br>
+	<textarea name="message" id="" cols="30" rows="3"></textarea>
+	</div>
+	
+	<div class="col-12 pt-4">
+	<button style="" type="submit">Send Message</button>
+	</div>
+	
+	</div>
+
+				  
+	</form>';
+	}
+	// [testing_url]
 
 }
 
