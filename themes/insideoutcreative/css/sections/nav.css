@@ -28,7 +28,7 @@ ul.menu>li.menu-item-has-children {
 }
 
 ul.menu>li>a {
-    padding: 9px;
+    padding: 9px 0;
     color: #525252;
     /* color: white;
     font-weight: 200;

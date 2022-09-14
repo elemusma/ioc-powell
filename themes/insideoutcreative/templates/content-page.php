@@ -6,7 +6,7 @@ get_header();
 global $post;
 
 if ( $post->post_parent ) {
-    echo '<section><a href="' . get_permalink( $post->post_parent ) . '" class="btn btn-primary position-fixed text-uppercase h1 btn-go-back">Go Back to ' . get_the_title( $post->post_parent ) . '</a></section>';
+    echo '<section><a href="' . get_permalink( $post->post_parent ) . '" class="btn btn-primary position-fixed text-uppercase h1 btn-go-back z-1">Go Back to ' . get_the_title( $post->post_parent ) . '</a></section>';
     }
 
     
@@ -19,23 +19,38 @@ if ( ! post_password_required( $post ) ) {
 <div class="col-md-5 img--main">
 <div class="h-100">
 <?php 
-$image = get_field('main_image');
+$gallery = get_field('main_image');
 $imageMobile = get_field('mobile_image');
-if(!$imageMobile && $image) {
-    echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
-echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
 
-} elseif($imageMobile){
-    echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
-echo wp_get_attachment_image($imageMobile['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
-} elseif(has_post_thumbnail()) {
-the_post_thumbnail('full',array('class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;'));
-the_post_thumbnail('full',array('class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>''));
-} else {
-$globalPlaceholderImg = get_field('global_image','options');
-echo wp_get_attachment_image($globalPlaceholderImg['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
-echo wp_get_attachment_image($globalPlaceholderImg['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
-} 
+if( $gallery ): 
+    echo '<div class="services-carousel owl-carousel owl-theme position-absolute h-100" style="top:0;left:0;">';
+    foreach( $gallery as $image ):
+        // echo '<div class="">';
+        // echo '<div class="position-relative">';
+        // echo '<a href="' . wp_get_attachment_image_url($image['id'], 'full') . '" data-lightbox="image-set">';
+        echo wp_get_attachment_image($image['id'], 'full','',['class'=>'w-100 img-portfolio'] );
+        // echo '</a>';
+        // echo '</div>';
+        // echo '</div>';
+    endforeach; 
+    echo '</div>';
+    endif;
+
+// if(!$imageMobile && $image) {
+//     echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
+// echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
+
+// } elseif($imageMobile){
+//     echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
+// echo wp_get_attachment_image($imageMobile['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
+// } elseif(has_post_thumbnail()) {
+// the_post_thumbnail('full',array('class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;'));
+// the_post_thumbnail('full',array('class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>''));
+// } else {
+// $globalPlaceholderImg = get_field('global_image','options');
+// echo wp_get_attachment_image($globalPlaceholderImg['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
+// echo wp_get_attachment_image($globalPlaceholderImg['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
+// } 
 ?>
 </div>
 </div>

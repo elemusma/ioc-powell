@@ -5,12 +5,16 @@
  //  start of header
  echo '<section class="position-relative hero-content" style="">';
 
-echo '<div class="position-absolute bg-attachment w-100 h-100 lazyloaded" style="background-size: cover; background-attachment: fixed; background-position: center center; top: 0px; left: 0px; z-index: -3; background-image: url(' . get_the_post_thumbnail_url() . ');"></div>';
+echo '<div class="position-absolute bg-attachment w-100 h-100 lazyloaded" style="background-size: cover; background-attachment: fixed; background-position: center center; top: 0px; left: 0px; z-index: -3;"></div>';
+
+echo '<video playsinline autoplay muted class="w-100 h-100 position-absolute" src="' . home_url() . '
+/wp-content/themes/insideoutcreative/videos/Powell-Restoration.mp4#t=0.5
+" style="top:0;left:0;object-fit:cover;"></video>';
  
  echo '<div class="position-absolute w-100 h-100" style="top:0;left:0;background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(75,113,255,1) 70%);mix-blend-mode:multiply;z-index:-2;"></div>';
+background: radial-gradient(circle, rgba(255,255,255,0) 0%, rgba(75,113,255,1) 70%);mix-blend-mode:multiply;z-index:0;"></div>';
 
-echo '<div class="container" style="margin-bottom:-10px;">';
+echo '<div class="container position-relative z-1" style="margin-bottom:-10px;">';
 echo '<div class="row">';
 // echo '<div class="col-lg-6 col-md-9 pt-5">';
 // echo '<h1 class="text-white mb-0 page-title text-shadow">' . get_the_title() . '</h1>';
@@ -43,7 +47,7 @@ endwhile; endif;
 echo '</div>';
 echo '</div>';
 
-echo '<div class="position-relative w-100" style="height:75px;z-index:-1;">
+echo '<div class="position-relative w-100" style="height:75px;z-index:0;">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 615.81 94.83" style="margin-bottom:-60px;">
         <defs>
           <style>
