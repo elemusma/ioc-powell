@@ -78,6 +78,7 @@ echo '<div class="position-relative w-100" style="height:75px;z-index:-1;">
      $classes = get_sub_field('classes');
      $style = get_sub_field('style');
      $bgImg = get_sub_field('background_image');
+     $overlayBg = get_sub_field('overlay_background');
      $imgDataAos = get_sub_field('image_data_aos');
      $img = get_sub_field('image');
      $contentDataAos = get_sub_field('content_data_aos');
@@ -86,6 +87,10 @@ echo '<div class="position-relative w-100" style="height:75px;z-index:-1;">
  
      if($option == 'Content + Image'){
      echo '<section class="position-relative bg-attachment mt-5 mb-5 ' . $classes . '" style="background:url(' . wp_get_attachment_image_url($bgImg['id'],'full') . ');background-size:cover;background-attachment:fixed;padding:250px 0;' . $style . '">';
+
+     if($overlayBg):
+     echo '<div class="bg-overlay position-absolute w-100 h-100" style="top:0;left:0;' . $overlayBg . '"></div>';
+     endif;
  
      echo '<div class="container">';
      echo '<div class="row row-content align-items-center justify-content-between">';
@@ -238,8 +243,13 @@ if(have_rows('content_group_bottom')):
     $img = get_sub_field('image');
     $contentDataAos = get_sub_field('content_data_aos');
     $content = get_sub_field('content');
+    $overlayBg = get_sub_field('overlay_background');
 
     echo '<section class="position-relative bg-attachment mt-5 mb-5 ' . $classes . '" style="background:url(' . wp_get_attachment_image_url($bgImg['id'],'full') . ');background-size:cover;background-attachment:fixed;padding:250px 0;' . $style . '">';
+
+    if($overlayBg):
+      echo '<div class="bg-overlay position-absolute w-100 h-100" style="top:0;left:0;' . $overlayBg . '"></div>';
+      endif;
 
     echo '<div class="container">';
     echo '<div class="row row-content align-items-center justify-content-between">';
