@@ -157,6 +157,30 @@ function baseurl_shortcode( $atts ) {
 
 }
 
+function btn_shortcode( $atts, $content = null ) {
+
+	$a = shortcode_atts( array(
+	
+	'class' => '',
+	
+	'href' => '#',
+	
+	'style' => '',
+	
+	'target' => ''
+	
+	), $atts );
+	
+	// return '<a class="btn-accent-primary" href="' . esc_attr($a['href']) . '" target="' . esc_attr($a['target']) . '">' . $content . '</a>';
+	
+	return '<a class="' . esc_attr($a['class']) . '" href="' . esc_attr($a['href']) . '" style="' . esc_attr($a['style']) . '" target="' . esc_attr($a['target']) . '">' . $content . '</a>';
+	
+	// [button href="#" class="bg-accent-outline btn btn-lg" style="font-weight:bold; margin-top:50px; background-color: #999″]Learn More[/button]
+	
+	}
+	
+	add_shortcode( 'button', 'btn_shortcode' );
+
 add_shortcode( 'contact_form', 'contact_form_shortcode' );
 function contact_form_shortcode( $atts ) {
 

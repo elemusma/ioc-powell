@@ -8,7 +8,7 @@
 echo '<div class="position-absolute bg-attachment w-100 h-100 lazyloaded" style="background-size: cover; background-attachment: fixed; background-position: center center; top: 0px; left: 0px; z-index: -3;"></div>';
 
 echo '<video playsinline autoplay muted class="w-100 h-100 position-absolute" src="' . home_url() . '
-/wp-content/themes/insideoutcreative/videos/Powell-Restoration.mp4#t=0.5
+/wp-content/themes/insideoutcreative/videos/Powell-Restoration-Overview-Video.mp4#t=0.5
 " style="top:0;left:0;object-fit:cover;"></video>';
  
  echo '<div class="position-absolute w-100 h-100" style="top:0;left:0;background: rgb(255,255,255);
@@ -22,7 +22,7 @@ echo '<div class="row">';
 
 if(have_rows('header_content')): while(have_rows('header_content')): the_row();
 echo '<div class="col-12 ml-auto p-0">';
-echo '<div style="height:300px;"></div>';
+echo '<div style="height:500px;"></div>';
 echo '<div class="text-center" style="">';
 echo '<div class="text-white text-shadow" style="font-size:150%;">';
 echo get_sub_field('content');
@@ -119,8 +119,8 @@ echo '<div class="position-relative w-100" style="height:75px;z-index:0;">
     } else {
         echo '<section class="position-relative bg-attachment mt-5 mb-5 ' . $classes . '" style="background:url(' . wp_get_attachment_image_url($bigImage['id'],'full') . ');background-size:cover;background-attachment:fixed;padding:250px 0;' . $style . '"></section>';
 
-        echo '<div class="container pb-5 pt-5">';
-        echo '<div class="row pb-5">';
+        echo '<div class="container pt-5">';
+        echo '<div class="row">';
         echo '<div class="col-12 text-center">';
 
         echo '<h2>' . $bigImage['title'] . '</h2>';

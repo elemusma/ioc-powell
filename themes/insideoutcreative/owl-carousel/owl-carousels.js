@@ -5,11 +5,11 @@ $('.services-carousel').owlCarousel({
     nav: true,
     dots: false,
     // stagePadding:170,
-    autoplay: false,
+    autoplay: true,
     autoplayTimeout: 2500,
-    autoplayHoverPause: false,
-    animateIn: 'fadeIn',
-    animateOut: 'fadeOut',
+    autoplayHoverPause: true,
+    // animateIn: 'fadeIn',
+    // animateOut: 'fadeOut',
     // navText : ["<img src='/wp-content/uploads/2021/07/Arrow-Left-Blair-ITC.png' />","<img src='/wp-content/uploads/2021/07/Arrow-Right-Blair-ITC.png' />"],
     // responsive: {
     //     0: {
