@@ -49,8 +49,8 @@ echo '<div class="col-md-6 text-white mb-5">';
 
 echo wp_get_attachment_image($image['id'],'full','',['class'=>'w-100 h-auto','style'=>'']);
 echo '<p class="h2 bold">' . $name . '</p>';
-echo '<p class="h2 bold">' . $title . '</p>';
-echo '<a href="mailto:' . $email . '" class="h3">' . $email . '</a>';
+echo '<p class="h3 bold">' . $title . '</p>';
+echo '<a href="mailto:' . $email . '" class="h4">' . $email . '</a>';
 echo '<p class="mb-0">' . $year . '</p>';
 // echo '<p class="h2 bold">' . get_the_title() . '</p>';
 
