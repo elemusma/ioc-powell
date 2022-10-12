@@ -45,7 +45,7 @@ $title = get_sub_field('title');
 $year = get_sub_field('year');
 $email = get_sub_field('email');
 
-echo '<div class="col-md-6 text-white mb-5">';
+echo '<div class="col-md-6 text-white mb-5 ' . get_sub_field('classes') . '">';
 
 echo wp_get_attachment_image($image['id'],'full','',['class'=>'w-100 h-auto','style'=>'']);
 echo '<p class="h2 bold">' . $name . '</p>';
