@@ -4,9 +4,12 @@ echo '<section class="pt-5 pb-5">';
 echo '<div class="container">';
 echo '<div class="row justify-content-center">';
 
-echo '<div class="col-lg-7 col-md-9 text-center">';
+echo '<div class="col-md-9 text-center">';
 
+echo '<div class="pb-4">';
 echo get_sub_field('content');
+echo '</div>';
+
 $link = get_sub_field('link');
 
 if( $link ): 
