@@ -22,7 +22,7 @@ echo '<div class="row">';
 
 if(have_rows('header_content')): while(have_rows('header_content')): the_row();
 echo '<div class="col-12 ml-auto p-0">';
-echo '<div style="height:500px;"></div>';
+echo '<div style="height:700px;"></div>';
 echo '<div class="text-center" style="">';
 echo '<div class="text-white text-shadow" style="font-size:150%;">';
 echo get_sub_field('content');
