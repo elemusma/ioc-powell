@@ -36,7 +36,6 @@ class BVWPRequest {
 	const USER_BLACKLISTED = 50;
 	const RULE_BLOCKED     = 60;
 	const RULE_ALLOWED     = 70;
-	const PRIVATEIP        = 80;
 
 	public function __construct($ip) {
 		$fileNames = array();
@@ -179,10 +178,6 @@ class BVWPRequest {
 
 	public function getMatchedRules() {
 		return $this->matchedRules;
-	}
-
-	public function hasMatchedRules() {
-		return !empty($this->matchedRules);
 	}
 
 	public function updateReqInfo($info) {

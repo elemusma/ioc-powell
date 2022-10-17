@@ -62,3 +62,12 @@ button[type=submit] {
 button[type=submit]:hover {
   background: var(--accent-secondary);
 }
+
+input[type=radio] {
+  width: auto;
+  box-shadow: none !important;
+}
+
+input[type=radio]~label {
+  margin-top: 1px;
+}

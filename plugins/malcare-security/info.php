@@ -10,7 +10,7 @@ if (!class_exists('MCInfo')) :
 		public $badgeinfo = 'mcbadge';
 		public $ip_header_option = 'mcipheader';
 		public $brand_option = 'mcbrand';
-		public $version = '4.78';
+		public $version = '4.67';
 		public $webpage = 'https://www.malcare.com';
 		public $appurl = 'https://app.malcare.com';
 		public $slug = 'malcare-security/malcare.php';
@@ -107,19 +107,8 @@ if ($bvinfo->canSetCWBranding()) {
 			return ($this->getWatchTime() > $expiry_time);
 		}
 
-		public function isValidEnvironment(){
-			$bvsiteinfo = new MCWPSiteInfo();
-			$siteurl = $bvsiteinfo->siteurl();
-			$bvconfig = $this->config;
-			if ($bvconfig && array_key_exists("abspath", $bvconfig) &&
-					array_key_exists("siteurl", $bvconfig) && !empty($siteurl)) {
-				return ($bvconfig["abspath"] == ABSPATH && $bvconfig["siteurl"] == $siteurl);
-			}
-			return true;
-		}
-
 		public function isProtectModuleEnabled() {
-			return $this->isServiceActive("protect") && $this->isValidEnvironment();
+			return $this->isServiceActive("protect");
 		}
 
 		public function isDynSyncModuleEnabled() {
@@ -145,7 +134,7 @@ if ($bvinfo->canSetCWBranding()) {
 		}
 
 		public function isMalcare() {
-			return $this->getBrandName() === 'MalCare';
+			return $this->getBrandName() === 'MalCare - Pro';
 		}
 
 		public function isBlogvault() {

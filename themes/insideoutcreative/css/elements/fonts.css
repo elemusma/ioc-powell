@@ -87,7 +87,8 @@ h3.bold {
 }
 
 h1,
-h2.subtitle.text-white {
+h2.subtitle.text-white,
+.nexa {
   /* font-family: magallanes, sans-serif;
   font-weight: 900; */
   font-family: 'nexa_heavyregular';

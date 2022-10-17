@@ -191,6 +191,7 @@ if (!class_exists('MCAccount')) :
 
 		public function updateInfo($info) {
 			$accounts = self::allAccounts($this->settings);
+			$plugname = $info["plugname"];
 			$account_type = $info["account_type"];
 			$pubkey = $info['pubkey'];
 			if (!array_key_exists($pubkey, $accounts)) {
@@ -201,14 +202,7 @@ if (!class_exists('MCAccount')) :
 			}
 			$accounts[$pubkey]['account_gid'] = $info['account_gid'];
 			$accounts[$pubkey]['lastbackuptime'] = time();
-			if (isset($info["speed_plugname"])) {
-				$speed_plugname = $info["speed_plugname"];
-				$accounts[$pubkey][$speed_plugname] = true;
-			}
-			if (isset($info["plugname"])) {
-				$plugname = $info["plugname"];
-				$accounts[$pubkey][$plugname] = true;
-			}
+			$accounts[$pubkey][$plugname] = true;
 			$accounts[$pubkey]['account_type'] = $account_type;
 			$accounts[$pubkey]['url'] = $info['url'];
 			$accounts[$pubkey]['email'] = $info['email'];

@@ -67,7 +67,6 @@ class MCWPAdmin {
 		}
 		if ($this->bvinfo->isActivateRedirectSet()) {
 			$this->settings->updateOption($this->bvinfo->plug_redirect, 'no');
-			##ACTIVATEREDIRECTCODE##
 			wp_redirect($this->mainUrl());
 		}
 	}
@@ -75,8 +74,27 @@ class MCWPAdmin {
 	public function mcsecAdminMenu($hook) {
 		if ($hook === 'toplevel_page_malcare' || preg_match("/bv_add_account$/", $hook) || preg_match("/bv_account_details$/", $hook)) {
 			wp_enqueue_style( 'mcsurface', plugins_url('css/bvmui.min.css', __FILE__));
-			wp_enqueue_style( 'bootstrap', plugins_url('css/bootstrap.min.css', __FILE__));
-			wp_enqueue_style( 'bvplugin', plugins_url('css/bvplugin.min.css', __FILE__));
+			wp_enqueue_style( 'bvnew', plugins_url('css/bvnew.min.css', __FILE__));
+		}
+	}
+
+	public function enqueueBootstrapCSS() {
+		wp_enqueue_style( 'bootstrap', plugins_url('css/bootstrap.min.css', __FILE__));
+	}
+
+	public function showErrors() {
+		$error = NULL;
+		if (isset($_REQUEST['error'])) {
+			$error = $_REQUEST['error'];
+			$open_tag = '<div style="padding-bottom:0.5px;color:#ffaa0d;text-align:center"><p style="font-size:16px;">';
+			$close_tag = '</p></div>';
+			if ($error == "email") {
+				echo  $open_tag.'Please enter email in the correct format.'.$close_tag;
+			}
+			else if (($error == "custom") && isset($_REQUEST['bvnonce']) && wp_verify_nonce($_REQUEST['bvnonce'], "bvnonce")
+				&& isset($_REQUEST['message'])) {
+				echo $open_tag.nl2br(esc_html(base64_decode($_REQUEST['message']))).$close_tag;
+			}
 		}
 	}
 
@@ -86,8 +104,7 @@ class MCWPAdmin {
 		add_submenu_page(null, 'Malcare', 'Malcare', 'manage_options', 'bv_account_details',
 			array($this, 'showAccountDetailsPage'));
 
-		$brand = $this->bvinfo->getBrandInfo();
-		if (!$this->bvinfo->canSetCWBranding() && (!$brand || (!array_key_exists('hide', $brand) && !array_key_exists('hide_from_menu', $brand)))) {
+		if (!$this->bvinfo->canSetCWBranding()) {
 			$bname = $this->bvinfo->getBrandName();
 			$icon = $this->bvinfo->getBrandIcon();
 
@@ -140,8 +157,8 @@ class MCWPAdmin {
 	public function siteInfoTags() {
 		require_once dirname( __FILE__ ) . '/recover.php';
 		$bvnonce = wp_create_nonce("bvnonce");
-		$public = MCAccount::getApiPublicKey($this->settings);
 		$secret = MCRecover::defaultSecret($this->settings);
+		$public = MCAccount::getApiPublicKey($this->settings);
 		$tags = "<input type='hidden' name='url' value='".$this->siteinfo->wpurl()."'/>\n".
 				"<input type='hidden' name='homeurl' value='".$this->siteinfo->homeurl()."'/>\n".
 				"<input type='hidden' name='siteurl' value='".$this->siteinfo->siteurl()."'/>\n".
@@ -170,7 +187,8 @@ class MCWPAdmin {
 	}
 
 	public function showAddAccountPage() {
-		require_once dirname( __FILE__ ) . "/admin/add_new_account.php";
+		$this->enqueueBootstrapCSS();
+		require_once dirname( __FILE__ ) . "/admin/registration.php";
 	}
 
 	public function showAccountDetailsPage() {
@@ -209,38 +227,28 @@ class MCWPAdmin {
 
 		if ($this->bvinfo->canSetCWBranding()) {
 			$brand = $this->cwBrandInfo();
-		} else {
-			$brand = $this->bvinfo->getBrandInfo();
-		}
-
-		if ($brand) {
-			if (array_key_exists('hide', $brand)) {
-				unset($plugins[$slug]);
-			} else {
-				if (array_key_exists('name', $brand)) {
-					$plugins[$slug]['Name'] = $brand['name'];
-				}
-				if (array_key_exists('title', $brand)) {
-					$plugins[$slug]['Title'] = $brand['title'];
-				}
-				if (array_key_exists('description', $brand)) {
-					$plugins[$slug]['Description'] = $brand['description'];
-				}
-				if (array_key_exists('authoruri', $brand)) {
-					$plugins[$slug]['AuthorURI'] = $brand['authoruri'];
-				}
-				if (array_key_exists('author', $brand)) {
-					$plugins[$slug]['Author'] = $brand['author'];
-				}
-				if (array_key_exists('authorname', $brand)) {
-					$plugins[$slug]['AuthorName'] = $brand['authorname'];
-				}
-				if (array_key_exists('pluginuri', $brand)) {
-					$plugins[$slug]['PluginURI'] = $brand['pluginuri'];
-				}
+			if (array_key_exists('name', $brand)) {
+				$plugins[$slug]['Name'] = $brand['name'];
+			}
+			if (array_key_exists('title', $brand)) {
+				$plugins[$slug]['Title'] = $brand['title'];
+			}
+			if (array_key_exists('description', $brand)) {
+				$plugins[$slug]['Description'] = $brand['description'];
+			}
+			if (array_key_exists('authoruri', $brand)) {
+				$plugins[$slug]['AuthorURI'] = $brand['authoruri'];
+			}
+			if (array_key_exists('author', $brand)) {
+				$plugins[$slug]['Author'] = $brand['author'];
+			}
+			if (array_key_exists('authorname', $brand)) {
+				$plugins[$slug]['AuthorName'] = $brand['authorname'];
+			}
+			if (array_key_exists('pluginuri', $brand)) {
+				$plugins[$slug]['PluginURI'] = $brand['pluginuri'];
 			}
 		}
-
 		return $plugins;
 	}
 }

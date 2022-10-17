@@ -6,11 +6,10 @@ if (!class_exists('BVFWRuleEvaluator')) :
 class BVFWRuleEvaluator {
 	private $request;
 
-	const VERSION = 0.3;
+	const VERSION = 0.2;
 
-	public function __construct($fw) {
-		$this->fw = $fw;
-		$this->request = $fw->request;
+	public function __construct($request) {
+		$this->request = $request;
 	}
 
 	function getErrors() {
@@ -311,8 +310,9 @@ class BVFWRuleEvaluator {
 	function evaluateExpression($expr) {
 		switch ($expr["type"]) {
 		case "AND" :
-			return ($this->getValue($expr["left_operand"]) &&
-					$this->getValue($expr["right_operand"]));
+			$loperand = $this->getValue($expr["left_operand"]);
+			$roperand = $this->getValue($expr["right_operand"]);
+			return ($loperand && $roperand);
 		case "OR" :
 			$loperand = $this->getValue($expr["left_operand"]);
 			$roperand = $this->getValue($expr["right_operand"]);
@@ -343,111 +343,6 @@ class BVFWRuleEvaluator {
 		return $_args;
 	}
 
-	function loadPluggable() {
-		if (!function_exists('wp_get_current_user')) {
-			@include_once(ABSPATH . "wp-includes/pluggable.php");
-		}
-	}
-
-	function addWPAction($hook_name, $func_name, $priority, $accepted_args, $config) {
-		$this->loadPluggable();
-		add_action($hook_name, array($this, $func_name), $priority, $accepted_args);
-		$this->setVariable($hook_name, $config);
-		return false;
-	}
-
-	function addWPFilter($hook_name, $func_name, $priority, $accepted_args, $config) {
-		$this->loadPluggable();
-		add_filter($hook_name, array($this, $func_name), $priority, $accepted_args);
-		$this->setVariable($hook_name, $config);
-		return false;
-	}
-
-	function setVariable($name, $value) {
-		$this->{$name} = $value;
-	}
-
-	function getVariable($name) {
-		return $this->{$name};
-	}
-
-	function preInsertUpdatePost($maybe_empty, $postarr) {
-		$curr_hook = current_filter();
-		$config = $this->getVariable($curr_hook);
-		$posts_to_consider = $config["posts_to_consider"];
-		$rule_id = $config["rule_id"];
-		if (in_array($postarr['post_type'], $posts_to_consider)) {
-			if ((!empty($postarr['ID']) && !current_user_can("edit_{$postarr['post_type']}", $postarr['ID']))
-					|| !current_user_can("edit_posts")) {
-				$log_data = array($postarr['post_type'], $postarr['ID']);
-				$this->request->updateRulesInfo("wp_hook_info", $curr_hook, $log_data);
-				$this->fw->handleMatchedRule($rule_id);
-			}
-		}
-		return false;
-	}
-
-	function preDeletePost($delete, $post) {
-		$curr_hook = current_filter();
-		$config = $this->getVariable($curr_hook);
-		$posts_to_consider = $config["posts_to_consider"];
-		$rule_id = $config["rule_id"];
-		if (isset($post->post_type) && in_array($post->post_type, $posts_to_consider) &&
-				!current_user_can("delete_{$post->post_type}", $post->ID)) {
-			$log_data = array($post->post_type, $post->ID);
-			$this->request->updateRulesInfo("wp_hook_info", $curr_hook, $log_data);
-			$this->fw->handleMatchedRule($rule_id);
-		}
-	}
-
-	function preUserCreation($user_login) {
-		$curr_hook = current_filter();
-		$config = $this->getVariable($curr_hook);
-		$rule_id = $config["rule_id"];
-		if (!username_exists($user_login) && !current_user_can('create_users')) {
-			$this->request->updateRulesInfo("wp_hook_info", $curr_hook, $user_login);
-			$this->fw->handleMatchedRule($rule_id);
-		}
-		return $user_login;
-	}
-
-	function preDeleteUser($id, $reassign, $user) {
-		$curr_hook = current_filter();
-		$config = $this->getVariable($curr_hook);
-		$rule_id = $config["rule_id"];
-		if (!current_user_can('delete_users')) {
-			$log_data = array($id, $reassign, array("ID" => $user->ID,
-					"username" => $user->user_login,
-					"user_email" => $user->user_email,
-					"caps" => $user->allcaps,
-					"roles" => $user->roles));
-			$this->request->updateRulesInfo("wp_hook_info", $curr_hook, $log_data);
-			$this->fw->handleMatchedRule($rule_id);
-		}
-	}
-
-	function handleOption($option, $log_data) {
-		$curr_hook = current_filter();
-		$config = $this->getVariable($curr_hook);
-		$options_to_consider = $config["options_to_consider"];
-		$rule_id = $config["rule_id"];
-		if (in_array($option, $options_to_consider) && !current_user_can('manage_options')) {
-			$this->request->updateRulesInfo("wp_hook_info", $curr_hook, $log_data);
-			$this->fw->handleMatchedRule($rule_id);
-		}
-	}
-
-	function preUpdateOption($value, $option, $old_value) {
-		$log_data = array($value, $option, $old_value);
-		$this->handleOption($option, $log_data);
-		return $value;
-	}
-
-	function preDeleteOption($option) {
-		$this->handleOption($option, $option);
-		return $option;
-	}
-
 	function executeFunctionCall($func) {
 		$name = $func["name"];
 		$handler = array($this, $name);
@@ -472,18 +367,6 @@ class BVFWRuleEvaluator {
 			return $this->fetchConstantValue($expr["value"]);
 		case "FUNCTION" :
 			return $this->executeFunctionCall($expr);
-		case "ARRAY" :
-			$arr = array();
-			foreach ($expr["value"] as $element) {
-				$arr[] = $this->getValue($element);
-			}
-			return $arr;
-		case "HASH" :
-			$hash = array();
-			foreach($expr["value"] as $key => $value) {
-				$hash[strval($key)] = $value;
-			}
-			return $hash;
 		default :
 			return $this->evaluateExpression($expr);
 		}

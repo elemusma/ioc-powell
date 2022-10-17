@@ -50,7 +50,7 @@ echo '<div class="position-absolute w-100 h-100 bg-accent-secondary" style="top:
 echo '<div class="position-absolute w-100 bg-accent-secondary" style="height:100px;bottom:-100px;left:0;mix-blend-mode:overlay;opacity:.65;clip-path: ellipse(50% 15% at 50% 0%);"></div>';
 
 echo '<a href="' . get_the_permalink() . '" class="position-absolute w-100 h-100 d-flex align-items-center justify-content-center z-2 text-center col-services-link" style="top:0;left:0;border:4px solid var(--accent-quaternary);opacity:0;pointer-events:none;text-decoration:none;background:rgba(246,142,86,.5);">';
-echo '<h3 class="mb-0 bold h4" style="">' . get_the_title() . '</h3>';
+echo '<h3 class="mb-0 h4 nexa" style="">' . get_the_title() . '</h3>';
 echo '</a>';
 
 echo '<div class="w-100" style="">';

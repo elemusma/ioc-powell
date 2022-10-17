@@ -11,11 +11,11 @@ if (!class_exists('MCWPAPI')) :
 
 		public function pingbv($method, $body, $public = false) {
 			if ($public) {
-				return $this->do_request($method, $body, $public);
+				$this->do_request($method, $body, $public);
 			} else {
 				$api_public_key = $this->settings->getOption('bvApiPublic');
 				if (!empty($api_public_key) && (strlen($api_public_key) >= 32)) {
-					return $this->do_request($method, $body, $api_public_key);
+					$this->do_request($method, $body, $api_public_key);
 				}
 			}
 		}
@@ -24,7 +24,7 @@ if (!class_exists('MCWPAPI')) :
 			$account = MCAccount::find($this->settings, $pubkey);
 			if (isset($account)) {
 				$url = $account->authenticatedUrl($method);
-				return $this->http_request($url, $body);
+				$this->http_request($url, $body);
 			}
 		}
 
