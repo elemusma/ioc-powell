@@ -9,7 +9,7 @@ if(have_rows('about')): while(have_rows('about')): the_row();
 $bgImg = get_sub_field('background_image');
 $content = get_sub_field('content');
 
-echo '<section class="position-relative bg-attachment s" style="margin-top:-75px;">';
+echo '<section class="position-relative bg-attachment" style="margin-top:-75px;">';
 
 echo wp_get_attachment_image($bgImg['id'],'full','',['class'=>'position-absolute w-100 h-100','style'=>'top:0;left:0;']);
 
