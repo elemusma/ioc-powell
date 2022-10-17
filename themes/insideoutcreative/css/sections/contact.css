@@ -63,11 +63,21 @@ button[type=submit]:hover {
   background: var(--accent-secondary);
 }
 
-input[type=radio] {
+select {
+  width: 100% !important;
+}
+
+input[type=radio],
+input[type=checkbox] {
   width: auto;
   box-shadow: none !important;
 }
 
-input[type=radio]~label {
+input[type=radio]~label,
+input[type=checkbox]~label {
   margin-top: 1px;
+}
+
+.gform_wrapper.gravity-theme .ginput_container_date input {
+  width: 100% !important;
 }

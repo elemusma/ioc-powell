@@ -156,6 +156,16 @@ hr.text-white {
   width: auto;
 }
 
+.wp-block-quote {
+  max-width: 650px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  border-left: 1px solid;
+  margin: 0 0 1.75em;
+  padding-left: 1em;
+  font-size: 120%;
+}
+
 .overlay {
   top: 0;
   right: 0;

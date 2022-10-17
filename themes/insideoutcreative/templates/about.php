@@ -4,94 +4,113 @@
  */
 get_header(); 
 
+// start of intro
+if(have_rows('about')): while(have_rows('about')): the_row();
+$bgImg = get_sub_field('background_image');
+$content = get_sub_field('content');
+
+echo '<section class="position-relative bg-attachment" style="margin-top:-75px;">';
+
+echo wp_get_attachment_image($bgImg['id'],'full','',['class'=>'position-absolute w-100 h-100','style'=>'top:0;left:0;']);
+
+echo '<div class="position-absolute w-100 h-100 bg-accent-secondary" style="mix-blend-mode:multiply;top:0;"></div>';
+
+echo '<div class="position-relative w-100" style="padding-bottom:150px;">';
+echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 772.52 65.69"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M0,65.69c380.61-55.34,772.52,0,772.52,0V34.07C340-15.73,0,34.07,0,34.07Z"/><rect class="cls-1" width="772.52" height="36.82"/></g></g></svg>';
+echo '</div>';
+
+echo '<div class="position-relative" style="padding:150px 0;">';
+echo '<div class="position-absolute w-100 h-100" style="mix-blend-mode:screen;top:0;left:0;pointer-events:none;background:#0f2849;"></div>';
+echo '<div class="container">';
+echo '<div class="row justify-content-center">';
+echo '<div class="col-lg-10 text-center text-white pb-5">';
+
+echo $content;
+
+echo '</div>';
+echo '</div>';
+
+if(have_rows('core_values')): 
+echo '<div class="row justify-content-center">';
+$counter=0;
+while(have_rows('core_values')): the_row();
+$counter++;
+
+echo '<div class="col-md-4 text-white mb-5 ' . get_sub_field('classes') . '">';
+echo '<div class="position-relative pr-4 pl-4 h-100 d-flex align-items-end col-services" style="">';
+
+echo '<div class="position-absolute w-100 bg-accent-secondary" style="height:100px;top:-100px;left:0;mix-blend-mode:overlay;opacity:.65;clip-path: ellipse(50% 15% at 50% 101%);"></div>';
+
+echo '<div class="position-absolute w-100 h-100 bg-accent-secondary" style="top:0;left:0;mix-blend-mode:overlay;opacity:.65;"></div>';
+
+echo '<div class="position-absolute w-100 bg-accent-secondary" style="height:100px;bottom:-100px;left:0;mix-blend-mode:overlay;opacity:.65;clip-path: ellipse(50% 15% at 50% 0%);"></div>';
+
+echo '<a class="position-absolute w-100 h-100 d-flex align-items-center justify-content-start z-2 px-3 col-services-link text-left" style="top:0;left:0;border:4px solid var(--accent-quaternary);opacity:0;pointer-events:none;text-decoration:none;background:rgba(246,142,86,.5);">';
+echo '<div>';
+echo '<h3 class="mb-0 h4 nexa" style="">' . get_sub_field('title') . '</h3>';
+echo get_sub_field('content');
+echo '</div>';
+echo '</a>';
+
+echo '<div class="w-100" style="">';
+echo '<span class="h1 pb-5 d-inline-block">' . str_pad($counter, 2, '0', STR_PAD_LEFT) . '</span>';
+
+// echo '<h3 class="mb-0 pb-4 h4" style="border-bottom:10px solid var(--accent-quinary);"><a href="' . get_the_permalink() . '">' . get_the_title() . '</a></h3>';
+
+echo '<div class="container">';
+
+echo '<div class="d-flex align-items-baseline">';
+echo '<div class="pr-2 pb-lg-0 pl-0 pb-3 text-white">';
+
+echo '<div class="" style="border:1px solid var(--accent-primary);border-radius:50%;width: 35px;height: 35px;display: flex;align-items: center;justify-content: center;">';
+echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="width:15px;" fill="white"><path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/></svg>';
+echo '</div>';
+
+echo '</div>';
+
+echo '<div class="d-inline-block position-relative text-white pl-0">';
+echo '<h4 class="mb-0 h5 pb-4" style="border-bottom:10px solid var(--accent-primary);"><a href="' . get_the_permalink() . '">' . get_sub_field('title') . '</a></h4>';
+echo '</div>';
+echo '</div>';
+echo '</div>';
+
+
+echo '</div>';
+echo '</div>';
+echo '</div>';
+
+
+endwhile;
+echo '</div>';
+endif;
+
+
+echo '</div>';
+echo '</div>';
+
+echo '<div class="position-relative w-100" style="padding-top:150px;">';
+echo '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 772.52 65.69" style="margin-bottom:-7px;"><defs><style>.cls-1{fill:#fff;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M772.52,0C391.91,55.34,0,0,0,0V31.62c432.51,49.8,772.52,0,772.52,0Z"/><rect class="cls-1" y="28.88" width="772.52" height="36.82"/></g></g></svg>';
+echo '</div>';
+
+echo '</section>';
+endwhile; endif;
+// end of intro
+
+echo '<section class="pt-5 pb-5 position-relative" style="">';
+echo '<div class="container">';
+echo '<div class="row">';
+echo '<div class="col-md-12">';
+if ( have_posts() ) : while ( have_posts() ) : the_post();
+the_content();
+endwhile; else:
+echo '<p>Sorry, no posts matched your criteria.</p>';
+endif;
+echo '</div>';
+echo '</div>';
+echo '</div>';
+echo '</section>';
+
+
+get_footer(); 
+
 ?>
-<!-- start of intro -->
-<section class="pt-5 pb-5 bg-accent text-white">
-<div class="container">
-<div class="row align-items-center">
-<div class="col-md-6">
-<?php the_field('content'); ?>
-</div>
-<div class="col-md-6 overflow-h">
-    <div class="position-relative">
-<?php if(get_field('image')){ 
-$image = get_field('image');
-echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 box-shadow img-hover']); ?>
-<?php } else if(has_post_thumbnail()){
-the_post_thumbnail('full',array('class'=>'w-100 h-100 box-shadow img-hover'));
-} else { ?> 
-<?php echo wp_get_attachment_image(26,'full',"",['class'=>'w-100 h-100 box-shadow img-hover']); ?>
-<?php } ?>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- end of intro -->
-
-<?php if(have_rows('slides')) : while(have_rows('slides')): the_row(); 
-$bgImage = get_sub_field('background_image');
-?>
-<!-- start of full height -->
-<section class="pt-5 pb-5 position-relative bg-img d-flex justify-content-center align-items-center full-row" style="background:url('<?php echo wp_get_attachment_image_url($bgImage['id'],'full'); ?>');background-size:cover;background-attachment:fixed;">
-
-<div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-            <div class="inner-content text-white pt-5 pb-5 position-relative">
-                <div class="overlay position-absolute"></div>
-                <div class="position-relative z-1 pl-5 pr-5">
-<?php the_sub_field('content'); ?>
-</div>
-            </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- end of full height -->
-<?php endwhile; else: endif; ?>
-
-<?php if(have_rows('team_members')): ?>
-<!-- start of team members -->
-<section class="about-section our-team pt-5 pb-5 position-relative bg-accent texture-bg">
-<div class="background-image"></div>
-<div class="container pt-5 mb-5">
-    <div class="row mb-5 pb-5 justify-content-center">
-        <div class="col-md-9 text-white">
-            <?php the_field('team_description'); ?>
-        </div>
-    </div>
-
-<?php while(have_rows('team_members')): the_row(); ?>
-<!-- start of team members -->
-<div class="row pb-5 mb-5">
-<div class="col-md-5 img--main">
-<?php 
-$headshot = get_sub_field('headshot');
-echo wp_get_attachment_image($headshot['id'],'full',"",['class'=>'w-100 h-100']); ?>
-</div>
-<div class="col-lg-6 col-md-6 sm-text-center about"> 
-<div class="about-first-half">
-<div class="about-before"></div>
-<div class="about-middle"></div>
-</div>
-<div class="about-after"></div>
-<div class="about-details pt-5 pl-4 pr-4">
-<div class="page details">
-<h4 class="bodoni"><?php the_sub_field('name'); ?></h4>
-<h5 class=""><?php the_sub_field('job_title'); ?></h5>
-</div>
-<p style="line-height:1.25"><small><?php the_sub_field('bio',false,false); ?></small></p>
-</div>
-</div>
-</div>
-<!-- end of team members -->
-<?php endwhile; ?>
-
-</div>
-</section>
-<!-- end of team members -->
-<?php endif; ?>
-
-<?php get_footer(); ?>
