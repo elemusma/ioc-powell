@@ -2,7 +2,21 @@
 /**
  * Template Name: About
  */
-get_header(); 
+get_header();
+
+echo '<section class="pt-5 pb-5 position-relative" style="">';
+echo '<div class="container">';
+echo '<div class="row">';
+echo '<div class="col-md-12">';
+if ( have_posts() ) : while ( have_posts() ) : the_post();
+the_content();
+endwhile; else:
+echo '<p>Sorry, no posts matched your criteria.</p>';
+endif;
+echo '</div>';
+echo '</div>';
+echo '</div>';
+echo '</section>';
 
 // start of intro
 if(have_rows('about')): while(have_rows('about')): the_row();
@@ -95,20 +109,6 @@ echo '</div>';
 echo '</section>';
 endwhile; endif;
 // end of intro
-
-echo '<section class="pt-5 pb-5 position-relative" style="">';
-echo '<div class="container">';
-echo '<div class="row">';
-echo '<div class="col-md-12">';
-if ( have_posts() ) : while ( have_posts() ) : the_post();
-the_content();
-endwhile; else:
-echo '<p>Sorry, no posts matched your criteria.</p>';
-endif;
-echo '</div>';
-echo '</div>';
-echo '</div>';
-echo '</section>';
 
 
 get_footer(); 
