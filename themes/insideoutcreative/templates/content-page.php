@@ -28,7 +28,7 @@ if( $gallery ):
         // echo '<div class="">';
         // echo '<div class="position-relative">';
         // echo '<a href="' . wp_get_attachment_image_url($image['id'], 'full') . '" data-lightbox="image-set">';
-        echo '<div>';
+        echo '<div class="h-100 w-100">';
         echo wp_get_attachment_image($image['id'], 'full','',['class'=>'w-100 h-100 img-portfolio'] );
         echo '</div>';
         // echo '</a>';
