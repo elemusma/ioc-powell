@@ -5,9 +5,9 @@
 get_header(); 
 global $post;
 
-if ( $post->post_parent ) {
-    echo '<section><a href="' . get_permalink( $post->post_parent ) . '" class="btn btn-primary position-fixed text-uppercase h1 btn-go-back z-2" style="left:15px;">Go Back to ' . get_the_title( $post->post_parent ) . '</a></section>';
-    }
+// if ( $post->post_parent ) {
+    // echo '<section><a href="' . get_permalink( $post->post_parent ) . '" class="position-fixed bg-accent-secondary-outline btn btn-lg btn-go-back" style="top:20%;left:15px;z-index:10;">Go Back to ' . get_the_title( $post->post_parent ) . '</a></section>';
+    // }
 
     
 if ( ! post_password_required( $post ) ) {
@@ -15,48 +15,36 @@ if ( ! post_password_required( $post ) ) {
 <section class="about-section pt-5 pb-5 position-relative bg-accent texture-bg">
 <div class="background-image"></div>
 <div class="container pt-5 mb-5">
-<div class="row pb-5 mb-5 justify-content-around">
-<div class="col-md-5 img--main">
+<div class="row pb-5 mb-5 justify-content-around flex-lg-row flex-column-reverse">
+<div class="col-lg-5 img--main">
 <div class="h-100">
 <?php 
 $gallery = get_field('main_image');
 $imageMobile = get_field('mobile_image');
 
 if( $gallery ): 
-    echo '<div class="services-carousel owl-carousel owl-theme position-absolute h-100" style="top:0;left:0;">';
+    echo '<div class="services-carousel owl-carousel owl-theme position-absolute h-100 d-lg-block d-none" style="top:0;left:0;">';
     foreach( $gallery as $image ):
-        // echo '<div class="">';
-        // echo '<div class="position-relative">';
-        // echo '<a href="' . wp_get_attachment_image_url($image['id'], 'full') . '" data-lightbox="image-set">';
         echo '<div class="h-100 w-100">';
         echo wp_get_attachment_image($image['id'], 'full','',['class'=>'w-100 h-100 img-portfolio'] );
         echo '</div>';
-        // echo '</a>';
-        // echo '</div>';
-        // echo '</div>';
     endforeach; 
     echo '</div>';
     endif;
 
-// if(!$imageMobile && $image) {
-//     echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
-// echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
-
-// } elseif($imageMobile){
-//     echo wp_get_attachment_image($image['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
-// echo wp_get_attachment_image($imageMobile['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
-// } elseif(has_post_thumbnail()) {
-// the_post_thumbnail('full',array('class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;'));
-// the_post_thumbnail('full',array('class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>''));
-// } else {
-// $globalPlaceholderImg = get_field('global_image','options');
-// echo wp_get_attachment_image($globalPlaceholderImg['id'],'full',"",['class'=>'w-100 h-100 position-absolute d-lg-block d-none','style'=>'top:0;left:0;object-fit:cover;']);
-// echo wp_get_attachment_image($globalPlaceholderImg['id'],'full',"",['class'=>'w-100 h-100 position-relative d-lg-none d-block','style'=>'']);
-// } 
+if( $gallery ): 
+    echo '<div class="services-carousel owl-carousel owl-theme h-100 d-lg-none d-block" style="top:0;left:0;">';
+    foreach( $gallery as $image ):
+        // echo '<div class="h-100 w-100">';
+        echo wp_get_attachment_image($image['id'], 'full','',['class'=>'w-100 h-auto img-portfolio'] );
+        // echo '</div>';
+    endforeach; 
+    echo '</div>';
+    endif;
 ?>
 </div>
 </div>
-<div class="col-lg-6 col-md-6 sm-text-center about"> 
+<div class="col-lg-6 sm-text-center about"> 
 <div class="about-first-half">
 <div class="about-before"></div>
 <div class="about-middle"></div>

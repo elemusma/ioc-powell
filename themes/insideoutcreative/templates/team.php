@@ -33,7 +33,7 @@ $relationship = get_sub_field('relationship');
 
 echo '<section class="position-relative bg-attachment" style="margin-bottom:-70px;">';
 
-echo wp_get_attachment_image($bgImg['id'],'full','',['class'=>'position-absolute w-100 h-100','style'=>'top:0;left:0;']);
+echo wp_get_attachment_image($bgImg['id'],'full','',['class'=>'position-absolute w-100 h-100','style'=>'top:0;left:0;object-fit: cover;']);
 
 echo '<div class="position-absolute w-100 h-100 bg-accent-secondary" style="mix-blend-mode:multiply;top:0;"></div>';
 

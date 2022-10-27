@@ -105,7 +105,7 @@ echo '</div>';
 echo '</header>';
 
 if(!is_front_page()):
-echo '<a href="' . home_url() . '/" class="position-fixed bg-accent-outline btn btn-lg" style="top:20%;right:25px;z-index:2;">Go Back Home</a>';
+echo '<a href="' . home_url() . '/" class="position-fixed bg-accent-secondary-outline btn btn-lg" style="bottom:10%;right:25px;z-index:5;">Go Back Home</a>';
 endif;
 
 ?>
